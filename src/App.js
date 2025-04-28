@@ -4,7 +4,7 @@ import CompetitionTab from './components/CompetitionTab';
 import ParticipantsTab from './components/ParticipantsTab';
 import ChronoTab from './components/ChronoTab';
 import ResultsTab from './components/ResultsTab';
-import PublicDisplay from './components/publicdisplay.js'; // Correction du nom de fichier (minuscules)
+import PublicDisplay from './components/publicdisplay.js';
 
 function App() {
   // État pour le mode (admin ou affichage)
@@ -20,7 +20,7 @@ function App() {
   const [riders, setRiders] = useState([]);
   const [ponies, setPonies] = useState([]);
   const [couples, setCouples] = useState([]);
-  const [teams, setTeams] = useState([]);
+  const [teams] = useState([]); // Tableau statique pour éviter l'erreur
   const [runs, setRuns] = useState([]);
   const [currentCompetition, setCurrentCompetition] = useState(null);
   const [activeRun, setActiveRun] = useState(null);
@@ -72,7 +72,7 @@ function App() {
         couples
       });
     }
-  }, [currentCompetition, runs, mode]);
+  }, [currentCompetition, runs, competitions, riders, ponies, couples, mode]);
   
   // Fonction pour sélectionner une compétition
   const selectCompetition = (competition) => {
