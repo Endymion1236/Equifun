@@ -1,70 +1,36 @@
-# Getting Started with Create React App
+# Application de Gestion d'Equifun
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Cette application permet de gérer les compétitions d'Equifun selon le règlement officiel de la Fédération Française d'Équitation (FFE). Elle offre une interface complète pour la gestion des cavaliers, poneys, compétitions, chronométrage et résultats.
 
-## Available Scripts
+## Fonctionnalités
 
-In the project directory, you can run:
+- **Gestion des compétitions** : créer et configurer des compétitions individuelles ou par équipe
+- **Gestion des participants** : enregistrer les cavaliers et poneys/chevaux
+- **Chronométrage précis** : enregistrer les temps et les pénalités selon le règlement
+- **Résultats et classements** : visualiser les classements individuels ou par équipe
 
-### `npm start`
+## Installation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Assurez-vous d'avoir Node.js installé sur votre ordinateur
+2. Clonez ce dépôt
+3. Installez les dépendances en exécutant `npm install`
+4. Démarrez l'application avec `npm start`
+5. Accédez à l'application dans votre navigateur à l'adresse http://localhost:3000
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Utilisation
 
-### `npm test`
+1. Commencez par créer une compétition dans l'onglet "Compétitions"
+2. Ajoutez vos cavaliers et poneys dans l'onglet "Cavaliers et Poneys"
+3. Utilisez l'onglet "Chronomètre" pour enregistrer les temps et pénalités pendant la compétition
+4. Consultez les résultats dans l'onglet "Résultats"
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Règlement
 
-### `npm run build`
+Cette application suit le règlement Equifun de la FFE applicable au 2 septembre 2024.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Développement
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Cette application a été développée avec :
+- React.js pour l'interface utilisateur
+- Tailwind CSS pour les styles
+- Lucide React pour les ic

@@ -4,7 +4,7 @@ import CompetitionTab from './components/CompetitionTab';
 import ParticipantsTab from './components/ParticipantsTab';
 import ChronoTab from './components/ChronoTab';
 import ResultsTab from './components/ResultsTab';
-import PublicDisplay from './components/publicdisplay.js'; // Correction du nom de fichier (minuscules)
+import PublicDisplay from './components/PublicDisplay';
 
 function App() {
   // État pour le mode (admin ou affichage)
