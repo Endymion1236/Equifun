@@ -122,153 +122,157 @@ function App() {
         }
       ]);
     }
-  }, [mode, competitions.length]);
+  }, [mode]);
 
-  // Sélecteur de mode
-  if (mode === 'selector') {
-    return (
-      <div className="flex flex-col h-screen bg-blue-600 text-white justify-center items-center p-4">
-        <h1 className="text-4xl font-bold mb-8">Application Equifun</h1>
-        <p className="text-xl mb-8">Choisissez le mode d'utilisation :</p>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <button 
-            className="bg-white text-blue-700 rounded-lg p-8 shadow-lg hover:bg-blue-100 flex flex-col items-center"
-            onClick={() => setMode('admin')}
-          >
-            <span className="text-2xl mb-4">Mode Administration</span>
-            <p className="text-gray-600 text-center">Utilisez ce mode sur l'appareil principal pour gérer les compétitions, cavaliers et chronométrage</p>
-          </button>
-          
-          <button 
-            className="bg-white text-blue-700 rounded-lg p-8 shadow-lg hover:bg-blue-100 flex flex-col items-center"
-            onClick={() => setMode('display')}
-          >
-            <span className="text-2xl mb-4">Mode Affichage Public</span>
-            <p className="text-gray-600 text-center">Utilisez ce mode sur un écran secondaire pour afficher les résultats en temps réel aux spectateurs</p>
-          </button>
-        </div>
-      </div>
-    );
-  }
+  // Rendu basé sur le mode
+  const renderContent = () => {
+    switch (mode) {
+      case 'selector':
+        return (
+          <div className="flex flex-col h-screen bg-blue-600 text-white justify-center items-center p-4">
+            <h1 className="text-4xl font-bold mb-8">Application Equifun</h1>
+            <p className="text-xl mb-8">Choisissez le mode d'utilisation :</p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <button 
+                className="bg-white text-blue-700 rounded-lg p-8 shadow-lg hover:bg-blue-100 flex flex-col items-center"
+                onClick={() => setMode('admin')}
+              >
+                <span className="text-2xl mb-4">Mode Administration</span>
+                <p className="text-gray-600 text-center">Utilisez ce mode sur l'appareil principal pour gérer les compétitions, cavaliers et chronométrage</p>
+              </button>
+              
+              <button 
+                className="bg-white text-blue-700 rounded-lg p-8 shadow-lg hover:bg-blue-100 flex flex-col items-center"
+                onClick={() => setMode('display')}
+              >
+                <span className="text-2xl mb-4">Mode Affichage Public</span>
+                <p className="text-gray-600 text-center">Utilisez ce mode sur un écran secondaire pour afficher les résultats en temps réel aux spectateurs</p>
+              </button>
+            </div>
+          </div>
+        );
+      
+      case 'display':
+        return (
+          <PublicDisplay 
+            currentCompetition={currentCompetition}
+            runs={runs}
+            activeRun={activeRun}
+            switchMode={() => setMode('selector')}
+          />
+        );
+      
+      case 'admin':
+        return (
+          <div className="flex flex-col h-screen bg-gray-100">
+            {/* En-tête */}
+            <header className="bg-blue-600 text-white p-4">
+              <div className="flex justify-between">
+                <h1 className="text-2xl font-bold">Application de Gestion d'Equifun</h1>
+                <button 
+                  className="px-3 py-1 bg-blue-700 hover:bg-blue-800 rounded"
+                  onClick={() => setMode('selector')}
+                >
+                  Changer de mode
+                </button>
+              </div>
+              <p className="text-sm opacity-80">Conforme au règlement FFE Equifun 2024</p>
+            </header>
+            
+            {/* Navigation */}
+            <nav className="bg-blue-800 text-white">
+              <div className="flex">
+                <button 
+                  className={`px-4 py-2 ${activeTab === 'competitions' ? 'bg-blue-700' : ''}`}
+                  onClick={() => setActiveTab('competitions')}
+                >
+                  Compétitions
+                </button>
+                <button 
+                  className={`px-4 py-2 ${activeTab === 'participants' ? 'bg-blue-700' : ''}`}
+                  onClick={() => setActiveTab('participants')}
+                >
+                  Cavaliers et Poneys
+                </button>
+                <button 
+                  className={`px-4 py-2 ${activeTab === 'chronometer' ? 'bg-blue-700' : ''}`}
+                  onClick={() => setActiveTab('chronometer')}
+                >
+                  Chronomètre
+                </button>
+                <button 
+                  className={`px-4 py-2 ${activeTab === 'results' ? 'bg-blue-700' : ''}`}
+                  onClick={() => setActiveTab('results')}
+                >
+                  Résultats
+                </button>
+              </div>
+            </nav>
+            
+            {/* Contenu principal */}
+            <main className="flex-1 p-4 overflow-auto">
+              {/* Onglet Compétitions */}
+              {activeTab === 'competitions' && (
+                <CompetitionTab 
+                  competitions={competitions} 
+                  setCompetitions={setCompetitions} 
+                  selectCompetition={selectCompetition} 
+                  setActiveTab={setActiveTab} 
+                />
+              )}
+              
+              {/* Onglet Cavaliers et Poneys */}
+              {activeTab === 'participants' && (
+                <ParticipantsTab 
+                  riders={riders} 
+                  setRiders={setRiders} 
+                  ponies={ponies} 
+                  setPonies={setPonies}
+                  couples={couples}
+                  setCouples={setCouples}
+                />
+              )}
+              
+              {/* Onglet Chronomètre */}
+              {activeTab === 'chronometer' && (
+                <ChronoTab 
+                  currentCompetition={currentCompetition} 
+                  riders={riders} 
+                  ponies={ponies}
+                  couples={couples}
+                  runs={runs} 
+                  setRuns={setRuns}
+                  setActiveRun={setActiveRun}
+                />
+              )}
+              
+              {/* Onglet Résultats */}
+              {activeTab === 'results' && (
+                <ResultsTab 
+                  currentCompetition={currentCompetition} 
+                  riders={riders}
+                  ponies={ponies}
+                  runs={runs} 
+                  teams={teams} 
+                />
+              )}
+            </main>
+            
+            {/* Pied de page */}
+            <footer className="bg-gray-800 text-white p-4 text-center text-sm">
+              <p>Application de Gestion d'Equifun - Conforme au règlement FFE 2024</p>
+              <p className="text-gray-400 mt-1">Développé pour les centres équestres et organisateurs de compétitions</p>
+            </footer>
+          </div>
+        );
+      
+      default:
+        return null;
+    }
+  };
 
-  // Mode affichage - uniquement l'affichage public
-  if (mode === 'display') {
-    return (
-      <div className="h-screen">
-        <PublicDisplay 
-          currentCompetition={currentCompetition}
-          runs={runs}
-          activeRun={activeRun}
-          switchMode={() => setMode('selector')}
-        />
-      </div>
-    );
-  }
-
-  // Mode admin - interface complète
-  return (
-    <div className="flex flex-col h-screen bg-gray-100">
-      {/* En-tête */}
-      <header className="bg-blue-600 text-white p-4">
-        <div className="flex justify-between">
-          <h1 className="text-2xl font-bold">Application de Gestion d'Equifun</h1>
-          <button 
-            className="px-3 py-1 bg-blue-700 hover:bg-blue-800 rounded"
-            onClick={() => setMode('selector')}
-          >
-            Changer de mode
-          </button>
-        </div>
-        <p className="text-sm opacity-80">Conforme au règlement FFE Equifun 2024</p>
-      </header>
-      
-      {/* Navigation */}
-      <nav className="bg-blue-800 text-white">
-        <div className="flex">
-          <button 
-            className={`px-4 py-2 ${activeTab === 'competitions' ? 'bg-blue-700' : ''}`}
-            onClick={() => setActiveTab('competitions')}
-          >
-            Compétitions
-          </button>
-          <button 
-            className={`px-4 py-2 ${activeTab === 'participants' ? 'bg-blue-700' : ''}`}
-            onClick={() => setActiveTab('participants')}
-          >
-            Cavaliers et Poneys
-          </button>
-          <button 
-            className={`px-4 py-2 ${activeTab === 'chronometer' ? 'bg-blue-700' : ''}`}
-            onClick={() => setActiveTab('chronometer')}
-          >
-            Chronomètre
-          </button>
-          <button 
-            className={`px-4 py-2 ${activeTab === 'results' ? 'bg-blue-700' : ''}`}
-            onClick={() => setActiveTab('results')}
-          >
-            Résultats
-          </button>
-        </div>
-      </nav>
-      
-      {/* Contenu principal */}
-      <main className="flex-1 p-4 overflow-auto">
-        {/* Onglet Compétitions */}
-        {activeTab === 'competitions' && (
-          <CompetitionTab 
-            competitions={competitions} 
-            setCompetitions={setCompetitions} 
-            selectCompetition={selectCompetition} 
-            setActiveTab={setActiveTab} 
-          />
-        )}
-        
-        {/* Onglet Cavaliers et Poneys */}
-        {activeTab === 'participants' && (
-          <ParticipantsTab 
-            riders={riders} 
-            setRiders={setRiders} 
-            ponies={ponies} 
-            setPonies={setPonies}
-            couples={couples}
-            setCouples={setCouples}
-          />
-        )}
-        
-        {/* Onglet Chronomètre */}
-        {activeTab === 'chronometer' && (
-          <ChronoTab 
-            currentCompetition={currentCompetition} 
-            riders={riders} 
-            ponies={ponies}
-            couples={couples}
-            runs={runs} 
-            setRuns={setRuns}
-            setActiveRun={setActiveRun}
-          />
-        )}
-        
-        {/* Onglet Résultats */}
-        {activeTab === 'results' && (
-          <ResultsTab 
-            currentCompetition={currentCompetition} 
-            riders={riders}
-            ponies={ponies}
-            runs={runs} 
-            teams={teams} 
-          />
-        )}
-      </main>
-      
-      {/* Pied de page */}
-      <footer className="bg-gray-800 text-white p-4 text-center text-sm">
-        <p>Application de Gestion d'Equifun - Conforme au règlement FFE 2024</p>
-        <p className="text-gray-400 mt-1">Développé pour les centres équestres et organisateurs de compétitions</p>
-      </footer>
-    </div>
-  );
+  return renderContent();
 }
 
 export default App;
